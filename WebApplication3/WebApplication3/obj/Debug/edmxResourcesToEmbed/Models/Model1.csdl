@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ASP.NET_BİLGİModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dersler">
+    <Key>
+      <PropertyRef Name="DersID" />
+    </Key>
+    <Property Name="DersID" Type="Int32" Nullable="false" />
+    <Property Name="DersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OgretmenID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Ogretmenler" Relationship="Self.FK_Dersler_Ogretmenler" FromRole="Dersler" ToRole="Ogretmenler" />
+    <NavigationProperty Name="Notlars" Relationship="Self.FK_Notlar_Dersler" FromRole="Dersler" ToRole="Notlar" />
+  </EntityType>
+  <EntityType Name="Ogrenciler">
+    <Key>
+      <PropertyRef Name="OgrenciNo" />
+    </Key>
+    <Property Name="OgrenciNo" Type="Int32" Nullable="false" />
+    <Property Name="OgrenciAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DoğumYeri" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DoğumTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Notlars" Relationship="Self.FK_Notlar_Ogrenciler" FromRole="Ogrenciler" ToRole="Notlar" />
+  </EntityType>
+  <EntityType Name="Ogretmenler">
+    <Key>
+      <PropertyRef Name="OgretmenID" />
+    </Key>
+    <Property Name="OgretmenID" Type="Int32" Nullable="false" />
+    <Property Name="OgretmenAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Derslers" Relationship="Self.FK_Dersler_Ogretmenler" FromRole="Ogretmenler" ToRole="Dersler" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Notlar">
+    <Key>
+      <PropertyRef Name="OgrenciNo" />
+      <PropertyRef Name="DersID" />
+      <PropertyRef Name="Not" />
+    </Key>
+    <Property Name="OgrenciNo" Type="Int32" Nullable="false" />
+    <Property Name="DersID" Type="Int32" Nullable="false" />
+    <Property Name="Not" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Dersler" Relationship="Self.FK_Notlar_Dersler" FromRole="Notlar" ToRole="Dersler" />
+    <NavigationProperty Name="Ogrenciler" Relationship="Self.FK_Notlar_Ogrenciler" FromRole="Notlar" ToRole="Ogrenciler" />
+  </EntityType>
+  <Association Name="FK_Dersler_Ogretmenler">
+    <End Role="Ogretmenler" Type="Self.Ogretmenler" Multiplicity="1" />
+    <End Role="Dersler" Type="Self.Dersler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogretmenler">
+        <PropertyRef Name="OgretmenID" />
+      </Principal>
+      <Dependent Role="Dersler">
+        <PropertyRef Name="OgretmenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notlar_Dersler">
+    <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+    <End Role="Notlar" Type="Self.Notlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dersler">
+        <PropertyRef Name="DersID" />
+      </Principal>
+      <Dependent Role="Notlar">
+        <PropertyRef Name="DersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notlar_Ogrenciler">
+    <End Role="Ogrenciler" Type="Self.Ogrenciler" Multiplicity="1" />
+    <End Role="Notlar" Type="Self.Notlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogrenciler">
+        <PropertyRef Name="OgrenciNo" />
+      </Principal>
+      <Dependent Role="Notlar">
+        <PropertyRef Name="OgrenciNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Derslers" EntityType="Self.Dersler" />
+    <EntitySet Name="Ogrencilers" EntityType="Self.Ogrenciler" />
+    <EntitySet Name="Ogretmenlers" EntityType="Self.Ogretmenler" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Notlars" EntityType="Self.Notlar" />
+    <AssociationSet Name="FK_Dersler_Ogretmenler" Association="Self.FK_Dersler_Ogretmenler">
+      <End Role="Ogretmenler" EntitySet="Ogretmenlers" />
+      <End Role="Dersler" EntitySet="Derslers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notlar_Dersler" Association="Self.FK_Notlar_Dersler">
+      <End Role="Dersler" EntitySet="Derslers" />
+      <End Role="Notlar" EntitySet="Notlars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notlar_Ogrenciler" Association="Self.FK_Notlar_Ogrenciler">
+      <End Role="Ogrenciler" EntitySet="Ogrencilers" />
+      <End Role="Notlar" EntitySet="Notlars" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

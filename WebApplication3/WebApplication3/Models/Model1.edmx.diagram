@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="852320192504421ab42cd088d3ac0c97" Name="Diagram1">
+        <EntityTypeShape EntityType="ASP.NET_BİLGİModel.Dersler" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ASP.NET_BİLGİModel.Ogrenciler" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ASP.NET_BİLGİModel.Ogretmenler" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ASP.NET_BİLGİModel.sysdiagram" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ASP.NET_BİLGİModel.Notlar" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="ASP.NET_BİLGİModel.FK_Dersler_Ogretmenler" ManuallyRouted="false" />
+        <AssociationConnector Association="ASP.NET_BİLGİModel.FK_Notlar_Dersler" ManuallyRouted="false" />
+        <AssociationConnector Association="ASP.NET_BİLGİModel.FK_Notlar_Ogrenciler" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
